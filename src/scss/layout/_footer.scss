@@ -1,0 +1,23 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.footer {
+    background-color: v.$grisOscuro;
+    padding: 2.5rem 0;
+    margin-bottom: 0;
+
+    .contenido-footer {
+        padding-top: 2.5rem;
+    }
+
+    .navegacion {
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+    }
+
+    .copyright {
+        color: v.$blanco;
+        text-align: center;
+    }
+}

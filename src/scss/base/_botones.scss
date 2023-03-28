@@ -1,0 +1,44 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.boton {
+    color: v.$blanco;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 1rem 3rem;
+    text-align: center;
+    margin-top: 5rem;  
+    border: none;
+
+    
+}
+
+.boton-amarillo {
+    background-color: v.$amarillo;
+    display: inline-block;
+
+    &:hover {
+        background-color: darken(v.$amarillo, 5);
+        cursor: pointer;
+    }
+}
+
+.boton-amarillo-block {
+    background-color: v.$amarillo;
+    display: block;
+
+    &:hover {
+        background-color: darken(v.$amarillo, 5);
+        cursor: pointer;
+    }
+}
+
+.boton-verde {
+    background-color: v.$verde;
+    display: inline-block;
+
+    &:hover {
+        background-color: darken(v.$verde, 5);
+        cursor: pointer;
+    }
+}
