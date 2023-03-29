@@ -798,3 +798,16 @@ h4 {
     margin-top: 0;
   }
 }
+
+.alerta {
+  padding: 0.5rem;
+  text-align: center;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  border-radius: 0.2rem;
+}
+.alerta.error {
+  background-color: rgb(189, 7, 7);
+}

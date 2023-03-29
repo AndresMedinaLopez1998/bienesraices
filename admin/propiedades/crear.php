@@ -3,6 +3,10 @@
     require '../../includes/config/database.php';
     $db = conectarDB();
 
+    // Arreglo con mensajes de errores 
+    $errores = [];
+
+    // ejecutar el código después de que el usuario envía el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         // echo "<pre>";
         // var_dump($_POST);
@@ -16,13 +20,48 @@
         $estacionamiento = $_POST['estacionamiento'];
         $vendedores_id = $_POST['vendedor']; // Variable (se puso igual que en la tabla de propiedades en la base de datos) - esta en el name del select 
 
-        // Insertar en la base de datos 
-        $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
+        if(!$titulo) {
+            $errores[] = 'Debes añadir un título';
+        }   
 
-        $resultado = mysqli_query($db, $query);
+        if(!$precio) {
+            $errores[] = 'El precio es Obligatorio';
+        }  
 
-        if($resultado) {
-            echo "Insertado Correctamente";
+        if(strlen($descripcion) < 20 ) {
+            $errores[] = 'La descripción es obligatoria y debe tener al menos 20 caracteres';
+        }  
+
+        if(!$habitaciones) {
+            $errores[] = 'El número de habitaciones es obligatorio';
+        }  
+
+        if(!$wc) {
+            $errores[] = 'El número de baños es obligatorio';
+        }  
+
+        if(!$estacionamiento) {
+            $errores[] = 'El número de lugares de estacionamiento es obligatorio';
+        }  
+
+        if(!$vendedores_id) {
+            $errores[] = 'Elije un vendedor';
+        }  
+
+        // echo "<pre>";
+        // var_dump($errores);
+        // echo "</pre>";
+
+        // Revisar que el arreglo de errores este vacio 
+        if(empty($errores)) {
+             // Insertar en la base de datos 
+            $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
+
+            $resultado = mysqli_query($db, $query);
+
+            if($resultado) {
+                echo "Insertado Correctamente";
+            }
         }
     }
 
@@ -34,6 +73,12 @@
         <h1>Crear</h1>
 
         <a href="/admin/index.php" class="boton boton-verde">Volver</a>
+
+        <?php foreach($errores as $error): ?>
+            <div class="alerta error">
+                <?php echo $error; ?>
+            </div>
+        <?php  endforeach; ?>
 
         <form method="POST" action="/admin/propiedades/crear.php" class="formulario">
             <fieldset>
@@ -69,6 +114,7 @@
                 <legend>Vendedor</legend>
 
                 <select name="vendedor">
+                    <option value="">-- Seleccione --</option>
                     <option value="1">Juan</option>
                     <option value="2">Karen</option>
                 </select>
