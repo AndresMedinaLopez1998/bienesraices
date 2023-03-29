@@ -1,40 +1,27 @@
 <?php 
-
-    $id = $_GET['id'];
-    $id = filter_var($id, FILTER_VALIDATE_INT);
-
-    if(!$id) {
-        header('Location: /index.php');
-    }
-
     //Importar la conexión 
-    require 'includes/config/database.php';
+    require __DIR__ . '/../config/database.php';
     $db = conectarDB();
 
     // Consultar 
-    $query = "SELECT * FROM propiedades WHERE id = ${id} ";
+    $query = "SELECT * FROM propiedades LIMIT ${limite}";
 
     // Obtener un resultado
     $resultado = mysqli_query($db, $query);
 
-    if(!$resultado->num_rows) {
-        header('Location: /index.php');
-    }
-
-    $propiedad = mysqli_fetch_assoc($resultado);
-
-    require 'includes/funciones.php';
-    incluirTemplate('header');
 ?>
 
-    <main class="contenedor seccion contenido-centrado">
-        <h1><?php echo $propiedad['titulo']; ?></h1>
+<div class="contenedor-anuncios">
 
-        <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="Imagen de la Propiedad">
+    <?php while($propiedad = mysqli_fetch_assoc($resultado)): ?>
+    <div class="anuncio">
+        <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="Imagen Propiedad Anuncio">
 
-
-        <div class="resumen-propiedad">
+        <div class="contenido-anuncio">
+            <h3><?php echo $propiedad['titulo']; ?></h3>
+            <p><?php echo $propiedad['descripcion']; ?></p>
             <p class="precio">$ <?php echo $propiedad['precio']; ?></p>
+
             <ul class="iconos-caracteristicas">
                 <li>
                     <img class="icono" src="build/img/icono_wc.svg" alt="icono wc">
@@ -42,7 +29,7 @@
                 </li>
                 <li>
                     <img class="icono" src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento">
-                    <p><?php echo $propiedad['habitaciones']; ?></p>
+                    <p><?php echo $propiedad['estacionamiento']; ?></p>
                 </li>
                 <li>
                     <img class="icono" src="build/img/icono_dormitorio.svg" alt="icono habitaciones">
@@ -50,11 +37,14 @@
                 </li>
             </ul>
 
-            <p><?php echo $propiedad['descripcion']; ?></p>
+            <a class="boton boton-amarillo-block" href="anuncio.php?id=<?php echo $propiedad['id']; ?>">Ver Propiedad</a>
         </div>
-    </main>
+    </div>
+    <?php endwhile; ?>
 
-<?php 
+</div>
+
+<?php
+    //Cerrar la conexión 
     mysqli_close($db);
-    incluirTemplate('footer');
 ?>
