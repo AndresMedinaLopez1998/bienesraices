@@ -1,41 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienes Raices</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="build/css/app.css">
-</head>
-<body>
-    
-    <header class="header">
-        <div class="contenedor contenido-header">
-            <div class="barra">
-                <a href="/">
-                    <img src="build/img/logo.svg" alt="Logotipo de Bienes Raices">
-                </a>
-
-                <div class="mobile-menu">
-                    <img src="build/img/barras.svg" alt="Menu Responsive">
-                </div>
-
-                <div class="derecha">
-                    <img class="dark-mode-boton" src="build/img/dark-mode.svg" alt="Imagen Dark mode">
-                    <nav class="navegacion">
-                        <a href="nosotros.html">Nosotros</a>
-                        <a href="anuncios.html">Anuncios</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="contacto.html">Contacto</a>
-                    </nav>
-                </div>
-            </div>
-
-        </div>
-    </header>
+<?php 
+    require 'includes/funciones.php';
+    incluirTemplate('header');
+?>
 
     <main class="contenedor seccion">
         <h2>Casas y Depas en Venta</h2>
@@ -64,7 +30,7 @@
                         </li>
                     </ul>
 
-                    <a class="boton boton-amarillo-block" href="anuncio.html">Ver Propiedad</a>
+                    <a class="boton boton-amarillo-block" href="anuncio.php">Ver Propiedad</a>
                 </div>
             </div>
 
@@ -91,7 +57,7 @@
                         </li>
                     </ul>
 
-                    <a class="boton boton-amarillo-block" href="anuncio.html">Ver Propiedad</a>
+                    <a class="boton boton-amarillo-block" href="anuncio.php">Ver Propiedad</a>
                 </div>
             </div>
 
@@ -118,7 +84,7 @@
                         </li>
                     </ul>
 
-                    <a class="boton boton-amarillo-block" href="anuncio.html">Ver Propiedad</a>
+                    <a class="boton boton-amarillo-block" href="anuncio.php">Ver Propiedad</a>
                 </div>
             </div>
 
@@ -145,7 +111,7 @@
                         </li>
                     </ul>
 
-                    <a class="boton boton-amarillo-block" href="anuncio.html">Ver Propiedad</a>
+                    <a class="boton boton-amarillo-block" href="anuncio.php">Ver Propiedad</a>
                 </div>
             </div>
 
@@ -172,7 +138,7 @@
                         </li>
                     </ul>
 
-                    <a class="boton boton-amarillo-block" href="anuncio.html">Ver Propiedad</a>
+                    <a class="boton boton-amarillo-block" href="anuncio.php">Ver Propiedad</a>
                 </div>
             </div>
 
@@ -199,26 +165,13 @@
                         </li>
                     </ul>
 
-                    <a class="boton boton-amarillo-block" href="anuncio.html">Ver Propiedad</a>
+                    <a class="boton boton-amarillo-block" href="anuncio.php">Ver Propiedad</a>
                 </div>
             </div>
         </div>
     
     </main>
 
-    <footer class="footer seccion">
-        <div class="contenedor contendor-footer">
-            <nav class="navegacion">
-                <a href="nosotros.html">Nosotros</a>
-                <a href="anuncios.html">Anuncios</a>
-                <a href="blog.html">Blog</a>
-                <a href="contacto.html">Contacto</a>
-            </nav>
-        </div>
-
-        <p class="copyright">Todos los derechos Reservados 2023 &copy; </p>
-    </footer>
-
-    <script src="build/js/app.js"></script>
-</body>
-</html>
+<?php 
+    incluirTemplate('footer');
+?>
