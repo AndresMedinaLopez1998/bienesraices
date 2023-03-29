@@ -411,6 +411,24 @@ h4 {
   cursor: pointer;
 }
 
+.boton-rojo-block {
+  background-color: rgb(189, 7, 7);
+  display: block;
+}
+.boton-rojo-block:hover {
+  background-color: #a40606;
+  cursor: pointer;
+}
+
+.boton-verde-block {
+  background-color: #71B100;
+  display: block;
+}
+.boton-verde-block:hover {
+  background-color: #619800;
+  cursor: pointer;
+}
+
 .dark-mode {
   background-color: #1a1a1a;
 }
@@ -443,6 +461,9 @@ h4 {
 .dark-mode .formulario select {
   background-color: #333333;
   border: 1px solid #333333;
+  color: #FFFFFF;
+}
+.dark-mode table.propiedades tr {
   color: #FFFFFF;
 }
 
@@ -813,4 +834,20 @@ h4 {
 }
 .alerta.exito {
   background-color: #71B100;
+}
+
+table.propiedades {
+  margin-top: 4rem;
+  width: 100%;
+  border-spacing: 0;
+}
+table.propiedades thead {
+  background-color: #71B100;
+}
+table.propiedades tr {
+  color: #000000;
+  padding: 2rem;
+}
+table.propiedades .imagen-tabla {
+  width: 10rem;
 }

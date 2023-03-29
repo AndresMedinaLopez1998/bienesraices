@@ -42,3 +42,24 @@
         cursor: pointer;
     }
 }
+
+.boton-rojo-block {
+    background-color: v.$rojo;
+    display: block;
+
+    &:hover {
+        background-color: darken(v.$rojo, 5);
+        cursor: pointer;
+    }
+}
+
+.boton-verde-block {
+    background-color: v.$verde;
+    display: block;
+
+    &:hover {
+        background-color: darken(v.$verde, 5);
+        cursor: pointer;
+    }
+}
+
