@@ -46,6 +46,7 @@
 .boton-rojo-block {
     background-color: v.$rojo;
     display: block;
+    width: 100%;
 
     &:hover {
         background-color: darken(v.$rojo, 5);
