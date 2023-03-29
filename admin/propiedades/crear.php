@@ -17,7 +17,7 @@
     $wc = '';
     $estacionamiento = '';
     $vendedores_id = '';
-    $creado = date('Y/m/d');
+    
 
     // ejecutar el código después de que el usuario envía el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,7 +36,8 @@
         $wc = mysqli_real_escape_string($db, $_POST['wc']);
         $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
         $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor']); // Variable (se puso igual que en la tabla de propiedades en la base de datos) - esta en el name del select 
-
+        $creado = date('Y/m/d');
+        
         // Asignar files hacia una variable 
         $imagen = $_FILES['imagen'];
 
