@@ -811,3 +811,6 @@ h4 {
 .alerta.error {
   background-color: rgb(189, 7, 7);
 }
+.alerta.exito {
+  background-color: #71B100;
+}
