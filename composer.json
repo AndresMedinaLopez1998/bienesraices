@@ -1,0 +1,17 @@
+{
+    "name": "andre/bienesraices",
+    "description": "Creando un proyecto con POO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "AndresMedinaLopez1998",
+            "email": "a.medinalopez@ugto.mx"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\" : "./classes"
+        }
+    }
+}
