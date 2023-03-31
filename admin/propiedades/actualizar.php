@@ -45,10 +45,11 @@
         }
 
         // Revisar que el arreglo de errores este vacio 
-        if(empty($errores)) {
-            // almacenar la imagen 
-            $image->save(CARPETA_IMAGENES . $nombreImagen);
-
+        if (empty($errores)) {
+            // Almacenar la imagen
+            if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
+            }
             $propiedad->guardar();
         }
     }
