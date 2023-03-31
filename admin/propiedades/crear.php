@@ -3,6 +3,7 @@
     require '../../includes/app.php';
 
     use App\Propiedad;
+    use Intervention\Image\ImageManagerStatic as Image;
 
     estaAutenticado();
     
@@ -14,7 +15,7 @@
     $resultado = mysqli_query($db, $consulta);
 
     // Arreglo con mensajes de errores 
-    $errores = [];
+    $errores = Propiedad::getErrores();
 
     $titulo = '';
     $precio = '';
@@ -28,94 +29,35 @@
     // ejecutar el código después de que el usuario envía el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        // Crea una nueva instancia 
         $propiedad = new Propiedad($_POST);
 
-        $propiedad->guardar();
+        // Generar un nombre único 
+        $nombreImagen = md5( uniqid(rand(), true) ) . ".jpg";
 
-        // echo "<pre>";
-        // var_dump($_POST);
-        // echo"</pre>";
+        // Setear la imagen 
+        // Realiza un resize a la imagen con Intervention 
+        if($_FILES['imagen']['tmp_name']) {
+            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800, 600);
+            $propiedad->setImagen($nombreImagen);
 
-        // echo "<pre>";
-        // var_dump($_FILES);
-        // echo"</pre>";
-
-        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
-        $precio = mysqli_real_escape_string($db, $_POST['precio']);
-        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
-        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
-        $wc = mysqli_real_escape_string($db, $_POST['wc']);
-        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
-        $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor']); // Variable (se puso igual que en la tabla de propiedades en la base de datos) - esta en el name del select 
-        $creado = date('Y/m/d');
+        }
         
-        // Asignar files hacia una variable 
-        $imagen = $_FILES['imagen'];
-
-        if(!$titulo) {
-            $errores[] = 'Debes añadir un título';
-        }   
-
-        if(!$precio) {
-            $errores[] = 'El precio es Obligatorio';
-        }  
-
-        if(strlen($descripcion) < 20 ) {
-            $errores[] = 'La descripción es obligatoria y debe tener al menos 20 caracteres';
-        }  
-
-        if(!$habitaciones) {
-            $errores[] = 'El número de habitaciones es obligatorio';
-        }  
-
-        if(!$wc) {
-            $errores[] = 'El número de baños es obligatorio';
-        }  
-
-        if(!$estacionamiento) {
-            $errores[] = 'El número de lugares de estacionamiento es obligatorio';
-        }  
-
-        if(!$vendedores_id) {
-            $errores[] = 'Elije un vendedor';
-        }  
-
-        if(!$imagen['name'] || $imagen['error'] ) {
-            $errores[] = ' La imagen es obligatoria';
-        }
-
-        // Validar por tamaño
-        $medida = 1000 * 10000;
-
-        if($imagen['size'] > $medida) {
-            $errores[] = 'La imagen es muy pesada';
-        }
-
-        // echo "<pre>";
-        // var_dump($errores);
-        // echo "</pre>";
+        // Validar
+        $errores = $propiedad->validar();
 
         // Revisar que el arreglo de errores este vacio 
         if(empty($errores)) {
-
-            // Subida de Archivos
-
             // Crear Carpeta 
-            $carpetaImagenes = '../../imagenes/';
-
-            if(!is_dir($carpetaImagenes)) {
-                mkdir($carpetaImagenes);
+            if(!is_dir(CARPETA_IMAGENES)) {
+                mkdir(CARPETA_IMAGENES);
             }
+     
+            // Guarda la imagen en el servidor 
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
 
-            // Generar un nombre único 
-            $nombreImagen = md5( uniqid(rand(), true) ) . ".jpg";
-
-            // Subir la imagen 
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
-
-            
-
-            $resultado = mysqli_query($db, $query);
+            // Guarda en la base de datos 
+            $resultado = $propiedad->guardar();
 
             if($resultado) {
                 // Redireccionar al usuario 
